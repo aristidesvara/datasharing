@@ -33,6 +33,12 @@ const evidenceYear=row=>{
   const years=[...text.matchAll(/\b(19|20)\d{2}\b/g)].map(match=>Number(match[0]));
   return years.length?years[0]:null;
 };
+const PERIODS=Object.freeze([
+  {label:"1995-2011",min:1995,max:2011},
+  {label:"2012-2020",min:2012,max:2020},
+  {label:"2021-Actualidad",min:2021,max:Infinity}
+]);
+const evidencePeriod=year=>PERIODS.find(period=>year>=period.min&&year<=period.max);
 
 const sourceTitle=item=>{
   if(!item.sourceUrl)return `${item.study||item.title}<span class="source-tag">Fuente pendiente</span>`;
@@ -102,15 +108,15 @@ function renderTimelineChart(rows){
 
   const counts=rows.reduce((acc,row)=>{
     const year=evidenceYear(row);
-    return year?{...acc,[year]:(acc[year]||0)+1}:acc;
+    const period=year?evidencePeriod(year):null;
+    return period?{...acc,[period.label]:(acc[period.label]||0)+1}:acc;
   },{});
-  const years=Object.keys(counts).map(Number).sort((a,b)=>a-b);
-  const maxVal=Math.max(...Object.values(counts),1);
+  const maxVal=Math.max(...PERIODS.map(period=>counts[period.label]||0),1);
 
-  chart.innerHTML=years.map(year=>{
-    const count=counts[year];
+  chart.innerHTML=PERIODS.map(period=>{
+    const count=counts[period.label]||0;
     const height=24+(count/maxVal)*150;
-    return `<div class="year-bar" title="${year}: ${count} registro${count===1?"":"s"}"><div class="year-fill" style="height:${height}px"></div><div class="year-count">${count}</div><div class="year-label">${year}</div></div>`;
+    return `<div class="year-bar" title="${period.label}: ${count} registro${count===1?"":"s"}"><div class="year-fill" style="height:${height}px"></div><div class="year-count">${count}</div><div class="year-label">${period.label}</div></div>`;
   }).join("");
 }
 
