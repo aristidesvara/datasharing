@@ -162,9 +162,43 @@
   </section>
 </main>
 
-<script src="https://cdn.jsdelivr.net/gh/aristidesvara/datasharing@master/dashboard-vcm-empresas/evidence-data-1.js?v=linkaudit-20260520"></script>
-<script src="https://cdn.jsdelivr.net/gh/aristidesvara/datasharing@master/dashboard-vcm-empresas/evidence-data-2.js?v=linkaudit-20260520"></script>
-<script src="https://cdn.jsdelivr.net/gh/aristidesvara/datasharing@master/dashboard-vcm-empresas/evidence-data-3.js?v=linkaudit-20260520"></script>
-<script src="https://cdn.jsdelivr.net/gh/aristidesvara/datasharing@master/dashboard-vcm-empresas/app.js?v=linkaudit-20260520"></script>
+<script>
+(() => {
+  const stamp = "restore-20260520-01";
+  const bases = [
+    "https://raw.githubusercontent.com/aristidesvara/datasharing/master/dashboard-vcm-empresas/",
+    "https://cdn.jsdelivr.net/gh/aristidesvara/datasharing@master/dashboard-vcm-empresas/"
+  ];
+  const files = ["evidence-data-1.js", "evidence-data-2.js", "evidence-data-3.js", "app.js"];
+  const status = document.getElementById("explorerContainer");
+
+  const loadText = async (file) => {
+    let lastError;
+    for (const base of bases) {
+      try {
+        const response = await fetch(`${base}${file}?v=${stamp}`, {cache: "no-store"});
+        if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+        return await response.text();
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    throw new Error(`No se pudo cargar ${file}: ${lastError?.message || "error desconocido"}`);
+  };
+
+  const run = async () => {
+    const scripts = [];
+    for (const file of files) scripts.push(await loadText(file));
+    for (const source of scripts) (0, eval)(source);
+  };
+
+  run().catch(error => {
+    console.error(error);
+    if (status) {
+      status.innerHTML = `<div class="empty">No se pudo cargar la evidencia publicada. Recargue la página o use la versión local verificada.</div>`;
+    }
+  });
+})();
+</script>
 </body>
 </html>
