@@ -355,6 +355,47 @@ h2{
 .bar-bg{display:block;height:14px;background:#e4dfd3;border-radius:999px;overflow:hidden}
 .bar{display:block;height:100%;border-radius:999px;background:var(--red)}
 .bar-val{text-align:right;font-size:13px;font-weight:950}
+.timeline-box{grid-column:1/-1}
+.timeline{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(72px,1fr));
+  gap:9px;
+  align-items:end;
+  min-height:210px;
+  padding-top:10px;
+}
+.year-bar{
+  min-width:0;
+  display:grid;
+  grid-template-rows:1fr auto auto;
+  gap:6px;
+  align-items:end;
+}
+.year-fill{
+  align-self:end;
+  min-height:8px;
+  border-radius:6px 6px 2px 2px;
+  background:linear-gradient(180deg,var(--blue),var(--red));
+}
+.year-count{
+  color:var(--ink);
+  font-size:13px;
+  font-weight:950;
+  text-align:center;
+}
+.year-label{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:950;
+  text-align:center;
+}
+.timeline-note{
+  margin:12px 0 0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.35;
+  font-weight:800;
+}
 .pathway{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 .path-step{
   min-height:126px;
