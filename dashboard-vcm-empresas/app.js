@@ -17,13 +17,13 @@ const CASES=Object.freeze([
   {type:"Empresas / Ecuador",title:"Banco ProCredit y El Ordeño",sourceUrl:"#fuente-procredit-ordeno",sourceLabel:"Nota",text:"Despliegue operativo de la caja de herramientas PreViMujer de la GIZ; auditoría de procesos de línea.",trace:"Evaluación GIZ Ecuador 2024."},
   {type:"Telecom / Bolivia",title:"NuevaTel / Viva Bolivia",sourceUrl:"https://www.giz.de/en/downloads/ComVoMujer_Executive_Summary_ViolenceagainstwomenanditsfinancialconsequencesforbusinessesinBolivia_BO_2015.pdf",sourceLabel:"Informe",text:"Cálculo de la línea base pionera de costos empresariales derivados del derrame de la VPI.",trace:"GIZ ComVoMujer 2014."},
   {type:"Finanzas / LATAM",title:"Bolivia y Paraguay",sourceUrl:"https://doi.org/10.1177/10778012231189479",sourceLabel:"DOI",text:"Estudio multicéntrico en 9 instituciones bancarias; modelación paramétrica de ausentismo.",trace:"Violence Against Women (2024)."},
-  {type:"Sector privado / Perú",title:"Empresas Privadas CCL",sourceUrl:"#fuente-hsl-peru",sourceLabel:"Nota",text:"Auditoría contable y psicométrica aplicada de los costos invisibles del hostigamiento sexual laboral.",trace:"CCL-USMP Reporte 2024."},
+  {type:"Sector privado / Perú",title:"Empresas Privadas CCL",sourceUrl:"https://www.researchgate.net/publication/382000463_Entre_el_discurso_y_los_hechos_Develando_los_costos_invisibles_del_hostigamiento_sexual_laboral_en_las_empresas_privadas_del_Peru",sourceLabel:"ResearchGate",text:"Auditoría contable y psicométrica aplicada de los costos invisibles del hostigamiento sexual laboral.",trace:"CCL-USMP Reporte 2024."},
   {type:"Empresas / Colombia-México",title:"Proyecto IDRC 2019-2021",sourceUrl:"#fuente-idrc",sourceLabel:"Nota",text:"Modelación del impacto de la violencia contra las mujeres sobre la flexibilidad de las cadenas de suministro globales.",trace:"Contrato IDRC de Investigación Aplicada."},
-  {type:"Microempresa / Sector Exportador",title:"Ecuador-Perú MSEs",sourceUrl:"https://doi.org/10.3390/ijerph191912163",sourceLabel:"DOI",text:"Encuesta analítica sobre descapitalización, quiebre de la capacidad gerencial y pérdida de contratos internacionales.",trace:"Ponce-Gómez & Vara-Horna (2022)."}
+  {type:"Microempresa / Sector Exportador",title:"Ecuador-Perú MyPES Exportadoras",sourceUrl:"https://doi.org/10.3389/fpsyg.2022.950807",sourceLabel:"DOI",text:"Encuesta analítica sobre descapitalización, quiebre de la capacidad gerencial y pérdida de contratos internacionales.",trace:"Ponce-Gómez, Vara-Horna, Valenciano-Mañé & Dornberger (2022)."}
 ]);
 
 // Variables Globales de Control y Configuración Visual
-const COLORS=Object.freeze({"Costos financieros":"#8f1731","Riesgo reputacional":"#1e5b91","Productividad":"#137060","Capital humano":"#b98612","Equipos y clima":"#6b4bb0","Políticas":"#c4495b","Gerencia":"#30373f","Hostigamiento sexual":"#8f1731","Caso aplicado":"#76612f","Casos aplicados":"#76612f"});
+const COLORS=Object.freeze({"Costos financieros":"#8a2034","Riesgo reputacional":"#2f5f7f","Productividad":"#2f6f5e","Capital humano":"#a97424","Equipos y clima":"#5d5577","Políticas":"#9f4a5a","Gerencia":"#374151","Hostigamiento sexual":"#8a2034","Caso aplicado":"#7a672d","Casos aplicados":"#7a672d"});
 const normalize=value=>(value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const unique=values=>[...new Set(values)].filter(Boolean).sort();
 const strengthClass=value=>{const v=normalize(value);if(v.includes("fuerte"))return"strong";if(v.includes("moderada"))return"moderate";if(v.includes("debil"))return"weak";return"neutral"};
@@ -81,7 +81,7 @@ function renderAxisPlot(rows){
     const avgY=items.reduce((sum,r)=>sum+r.st_num,0)/items.length;
     const label=domain.replace("Costos financieros","Costos").replace("Riesgo reputacional","Mercado").replace("Caso aplicado","Casos");
     const active=state.domain===domain;
-    return `<button class="bubble ${active?'active':''}" data-domain="${domain}" style="left:${avgX}%;top:${100-avgY}%;width:${Math.min(98,54+items.length*2.2)}px;height:${Math.min(98,54+items.length*2.2)}px;background:${COLORS[domain]||"#8f1731"}" title="Filtrar/Alternar: ${domain}">${label}<small>n=${items.length}</small></button>`;
+    return `<button class="bubble ${active?'active':''}" data-domain="${domain}" style="left:${avgX}%;top:${100-avgY}%;width:${Math.min(98,54+items.length*2.2)}px;height:${Math.min(98,54+items.length*2.2)}px;background:${COLORS[domain]||"#8a2034"}" title="Filtrar/Alternar: ${domain}">${label}<small>n=${items.length}</small></button>`;
   }).join("");
 
   axis.innerHTML=`<span class="axis-label y">Más fuerza</span><span class="axis-label x">Más impacto empresarial</span>${points}`;
@@ -97,7 +97,7 @@ function renderBarsChart(rows){
   chart.innerHTML=sorted.map(([key,items])=>{
     const domainKey=key==="Casos aplicados"?"Caso aplicado":key;
     const active=state.domain===domainKey;
-    return `<button class="bar-row ${active?'active':''}" data-domain="${domainKey}" title="Filtrar/Alternar: ${key}"><span class="bar-label">${key}</span><span class="bar-bg"><span class="bar" style="width:${items.length/maxVal*100}%;background:${COLORS[key]||"#8f1731"}"></span></span><span class="bar-val">${items.length}</span></button>`;
+    return `<button class="bar-row ${active?'active':''}" data-domain="${domainKey}" title="Filtrar/Alternar: ${key}"><span class="bar-label">${key}</span><span class="bar-bg"><span class="bar" style="width:${items.length/maxVal*100}%;background:${COLORS[key]||"#8a2034"}"></span></span><span class="bar-val">${items.length}</span></button>`;
   }).join("");
 
   chart.querySelectorAll(".bar-row").forEach(btn=>btn.addEventListener("click",()=>setDomain(btn.dataset.domain)));
@@ -164,7 +164,7 @@ function buildExplorerView(rows){
                   <h3>${sourceTitle(row)}</h3>
                   <p class="text-slate-800 font-medium">${row.result}</p>
                   <div class="meta">
-                    <span class="pill" style="color:${COLORS[row.domain]||"#30373f"}; font-weight:900;">${row.domain}</span>
+                    <span class="pill" style="color:${COLORS[row.domain]||"#374151"}; font-weight:900;">${row.domain}</span>
                     <span class="pill ${inferenceClass(row.inference)}">${row.inference}</span>
                     <span class="pill ${strengthClass(row.strength)}">${row.strength}</span>
                     ${row.latam?`<span class="pill bg-indigo-100 text-indigo-900">LATAM</span>`:""}
