@@ -42,6 +42,7 @@ const evidencePeriod=year=>PERIODS.find(period=>year>=period.min&&year<=period.m
 
 const sourceTitle=item=>{
   if(!item.sourceUrl)return `${item.study||item.title}<span class="source-tag">Fuente pendiente</span>`;
+  if(item.sourceUrl.startsWith("#"))return `${item.study||item.title}<span class="source-tag">${item.sourceLabel||"Fuente"}</span>`;
   const external=!item.sourceUrl.startsWith("#");
   return `<a href="${item.sourceUrl}" ${external?'target="_blank" rel="noopener noreferrer"':""}>${item.study||item.title}<span class="source-tag">${item.sourceLabel||"Fuente"}</span></a>`;
 };
