@@ -28,6 +28,11 @@ const normalize=value=>(value||"").toLowerCase().normalize("NFD").replace(/[\u03
 const unique=values=>[...new Set(values)].filter(Boolean).sort();
 const strengthClass=value=>{const v=normalize(value);if(v.includes("fuerte"))return"strong";if(v.includes("moderada"))return"moderate";if(v.includes("debil"))return"weak";return"neutral"};
 const inferenceClass=value=>normalize(value).includes("causal")?"causal":"";
+const evidenceYear=row=>{
+  const text=[row.study,row.trace,row.design].filter(Boolean).join(" ");
+  const years=[...text.matchAll(/\b(19|20)\d{2}\b/g)].map(match=>Number(match[0]));
+  return years.length?years[0]:null;
+};
 
 const sourceTitle=item=>{
   if(!item.sourceUrl)return `${item.study||item.title}<span class="source-tag">Fuente pendiente</span>`;
@@ -89,6 +94,24 @@ function renderBarsChart(rows){
   }).join("");
 
   chart.querySelectorAll(".bar-row").forEach(btn=>btn.addEventListener("click",()=>setDomain(btn.dataset.domain)));
+}
+
+function renderTimelineChart(rows){
+  const chart=document.getElementById("timelineChart");
+  if(!chart)return;
+
+  const counts=rows.reduce((acc,row)=>{
+    const year=evidenceYear(row);
+    return year?{...acc,[year]:(acc[year]||0)+1}:acc;
+  },{});
+  const years=Object.keys(counts).map(Number).sort((a,b)=>a-b);
+  const maxVal=Math.max(...Object.values(counts),1);
+
+  chart.innerHTML=years.map(year=>{
+    const count=counts[year];
+    const height=24+(count/maxVal)*150;
+    return `<div class="year-bar" title="${year}: ${count} registro${count===1?"":"s"}"><div class="year-fill" style="height:${height}px"></div><div class="year-count">${count}</div><div class="year-label">${year}</div></div>`;
+  }).join("");
 }
 
 function renderCasesGrid(){
@@ -183,6 +206,7 @@ function drawExplorer(){
   // Refrescar componentes de gráficos vinculados (Cross-Filtering)
   renderBarsChart(EVIDENCE);
   renderAxisPlot(EVIDENCE);
+  renderTimelineChart(EVIDENCE);
 }
 
 function setupExplorerControls(){
