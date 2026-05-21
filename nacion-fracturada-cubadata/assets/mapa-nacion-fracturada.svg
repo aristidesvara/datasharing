@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#101820"/>
+  <rect x="0" y="0" width="14" height="675" fill="#C43C32"/>
+  <text x="55" y="58" fill="#E0A83A" font-family="Arial" font-size="16" font-weight="700">MAPA CONCEPTUAL</text>
+  <text x="55" y="112" fill="#F7F2EA" font-family="Georgia" font-size="42" font-weight="700">¿Hay un cambio de mentalidad?</text>
+  <text x="55" y="150" fill="#c7cfcd" font-family="Arial" font-size="20">Sí: cuatro fracturas explican por qué el silencio no equivale a inmovilidad</text>
+
+  <rect x="412" y="270" width="376" height="128" rx="16" fill="#18313C" stroke="#45636B" stroke-width="2"/>
+  <text x="600" y="314" text-anchor="middle" fill="#E0A83A" font-family="Arial" font-size="18" font-weight="700">TESIS</text>
+  <text x="600" y="354" text-anchor="middle" fill="#F7F2EA" font-family="Georgia" font-size="30" font-weight="700">Cuba está replegada,</text>
+  <text x="600" y="389" text-anchor="middle" fill="#F7F2EA" font-family="Georgia" font-size="30" font-weight="700">no dormida</text>
+
+  <g font-family="Arial">
+    <rect x="70" y="210" width="315" height="135" rx="14" fill="#142B33" stroke="#294A51"/>
+    <text x="95" y="252" fill="#E0A83A" font-size="18" font-weight="700">Estado vs vida cotidiana</text>
+    <text x="95" y="287" fill="#F7F2EA" font-size="21" font-weight="700">Control sin sostén</text>
+    <text x="95" y="320" fill="#c7cfcd" font-size="15">5.6% cree que el Estado</text>
+    <text x="95" y="340" fill="#c7cfcd" font-size="15">sostendrá la vida diaria.</text>
+
+    <rect x="815" y="210" width="315" height="135" rx="14" fill="#142B33" stroke="#294A51"/>
+    <text x="840" y="252" fill="#E0A83A" font-size="18" font-weight="700">Voto vs voz</text>
+    <text x="840" y="287" fill="#F7F2EA" font-size="21" font-weight="700">Canal vaciado</text>
+    <text x="840" y="320" fill="#c7cfcd" font-size="15">79% siente que su voto</text>
+    <text x="840" y="340" fill="#c7cfcd" font-size="15">electoral no importa.</text>
+
+    <rect x="70" y="430" width="315" height="135" rx="14" fill="#142B33" stroke="#294A51"/>
+    <text x="95" y="472" fill="#E0A83A" font-size="18" font-weight="700">Malestar vs acción pública</text>
+    <text x="95" y="507" fill="#F7F2EA" font-size="21" font-weight="700">Riesgo filtra protesta</text>
+    <text x="95" y="540" fill="#c7cfcd" font-size="15">71.4% apoya protestas;</text>
+    <text x="95" y="560" fill="#c7cfcd" font-size="15">17.9% ve probable participar.</text>
+
+    <rect x="815" y="430" width="315" height="135" rx="14" fill="#142B33" stroke="#294A51"/>
+    <text x="840" y="472" fill="#E0A83A" font-size="18" font-weight="700">Autonomía vs control</text>
+    <text x="840" y="507" fill="#F7F2EA" font-size="21" font-weight="700">Mercado restringido</text>
+    <text x="840" y="540" fill="#c7cfcd" font-size="15">84.4% ve empleo privado</text>
+    <text x="840" y="560" fill="#c7cfcd" font-size="15">o mixto como motor laboral.</text>
+
+    <line x1="385" y1="278" x2="412" y2="322" stroke="#6F7B7B" stroke-width="3"/>
+    <line x1="815" y1="278" x2="788" y2="322" stroke="#6F7B7B" stroke-width="3"/>
+    <line x1="385" y1="497" x2="412" y2="363" stroke="#6F7B7B" stroke-width="3"/>
+    <line x1="815" y1="497" x2="788" y2="363" stroke="#6F7B7B" stroke-width="3"/>
+  </g>
+
+  <rect x="150" y="602" width="900" height="42" rx="10" fill="#C43C32"/>
+  <text x="600" y="629" text-anchor="middle" fill="#F7F2EA" font-family="Arial" font-size="20" font-weight="700">La pregunta no es si Cuba explota. Es qué capacidades siguen vivas debajo del silencio.</text>
+</svg>
