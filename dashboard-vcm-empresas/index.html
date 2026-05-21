@@ -22,6 +22,13 @@
 .table-strength.neutral{background:#e6ebef;color:#5d6670}
 .table-result{color:var(--muted);line-height:1.35}
 .table-result small{display:block;margin-top:4px;color:var(--red);font-weight:900}
+.evidence-readings{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.reading-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;min-height:236px;display:flex;flex-direction:column;justify-content:space-between}
+.reading-card h3{margin:10px 0 8px;color:var(--ink);font-size:17px;line-height:1.12;letter-spacing:-.01em}
+.reading-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.42;font-weight:750}
+.reading-card .support{margin-top:14px;padding-top:10px;border-top:1px solid var(--line);color:#56616b;font-size:11px;line-height:1.36;font-weight:900}
+@media(max-width:1100px){.evidence-readings{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.evidence-readings{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -35,6 +42,7 @@
       <a href="#audiencias">Audiencias</a>
       <a href="#ruta">Ruta</a>
       <a href="#casos">Casos LATAM</a>
+      <a href="#lecturas">Lecturas</a>
       <a href="#explorador">Explorador</a>
     </nav>
   </div>
@@ -151,6 +159,55 @@
         <p class="lead">Experiencia aplicada de Vara-Horna, GIZ y AECID en empresas y organizaciones de América Latina.</p>
       </div>
       <div class="case-grid" id="caseGrid"></div>
+    </div>
+  </section>
+
+  <section class="section" id="lecturas">
+    <div class="section-head">
+      <h2>El estado de la evidencia, en cinco lecturas honestas</h2>
+      <p class="lead">Lo que sabemos, lo que apenas exploramos y lo que aún ignoramos antes de convertir evidencia en decisión.</p>
+    </div>
+    <div class="evidence-readings">
+      <article class="reading-card">
+        <div>
+          <span class="kpi-badge strong">Fuerte</span>
+          <h3>Lo demostrado con fuerza causal</h3>
+          <p>El costo humano y financiero está empíricamente establecido: daño sobre empleabilidad e ingresos, castigo bursátil ante escándalos públicos y deterioro de salud mental como mediador.</p>
+        </div>
+        <div class="support">Soporte: 17 estudios fuertes, concentrados en capital humano, costos financieros y riesgo reputacional.</div>
+      </article>
+      <article class="reading-card">
+        <div>
+          <span class="kpi-badge moderate">Moderada</span>
+          <h3>Lo establecido con evidencia moderada</h3>
+          <p>La política escrita inerte no correlaciona con caída de prevalencia. La capacitación interactiva mejora conocimiento y autoeficacia, pero la conducta sostenida sigue siendo el eslabón débil.</p>
+        </div>
+        <div class="support">Soporte: 49 estudios moderados; meta-análisis de Roehling y Debnath; estudios nulos de Blumell, de Haas y Naved/HERrespect.</div>
+      </article>
+      <article class="reading-card">
+        <div>
+          <span class="kpi-badge">Incipiente</span>
+          <h3>Lo que recién comienza a documentarse</h3>
+          <p>La rentabilidad de la prevención se apoya hoy en casos aplicados sin grupo control. Konecta, INTI, ProCredit y pilotos GIZ son consistentes, pero aún requieren réplicas cuasi-experimentales.</p>
+        </div>
+        <div class="support">Soporte: 6 casos aplicados no inferenciales. Cero RCTs sobre ROI. El business case está en construcción, no clausurado.</div>
+      </article>
+      <article class="reading-card">
+        <div>
+          <span class="kpi-badge weak">Vacío</span>
+          <h3>Lo que la evidencia aún no puede responder</h3>
+          <p>La evidencia causal más rigurosa proviene mayoritariamente de países de altos ingresos. En América Latina dominan diseños correlacionales, transversales y estudios de caso.</p>
+        </div>
+        <div class="support">Soporte: 27 registros LATAM; apenas 3-4 con inferencia causal estricta y magnitud comparable.</div>
+      </article>
+      <article class="reading-card">
+        <div>
+          <span class="kpi-badge">Brecha crítica</span>
+          <h3>La paradoja operativa</h3>
+          <p>Tenemos evidencia robusta del costo del problema y evidencia incipiente del retorno de su solución. Cerrar la brecha exige experimentación corporativa controlada.</p>
+        </div>
+        <div class="support">Próxima frontera: grupos comparables, métricas pre-post auditables y publicación de resultados nulos.</div>
+      </article>
     </div>
   </section>
 
