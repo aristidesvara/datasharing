@@ -48,7 +48,7 @@
       <p class="subtitle">Dr. Arístides Alfredo Vara Horna / Universidad de San Martín de Porres.</p>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat wide"><strong>86</strong><span>evidencias científicas globales sobre el impacto económico de la violencia contra las mujeres en las empresas.</span></div>
+      <div class="hero-stat wide"><strong>88</strong><span>evidencias científicas globales sobre el impacto económico de la violencia contra las mujeres en las empresas.</span></div>
     </div>
   </div>
 </section>
@@ -190,6 +190,10 @@
   ];
   const files = ["evidence-data-1.js", "evidence-data-2.js", "evidence-data-3.js", "app.js"];
   const status = document.getElementById("explorerContainer");
+  const extraEvidence = Object.freeze([
+    {domain:"Productividad",study:"Contreras, Beltrán y Puga Murai & Cortés-García (2022)",sourceUrl:"https://doi.org/10.18046/j.estger.2022.163.4857",sourceLabel:"DOI",design:"Estudio aplicado en dos empresas colombianas (n=172) con cuestionarios validados de costeo laboral",inference:"Correlacional / descriptiva",strength:"Moderada",latam:true,result:"El costo de la violencia de pareja para dos empresas colombianas fue de USD $28,692.68 en el último año, medido vía ausentismo, tardanza y presentismo desde víctimas y agresores.",caution:"Muestra acotada a dos empresas; útil como evidencia aplicada de costeo empresarial, no como estimación nacional ni inferencia causal.",trace:"Estudios Gerenciales, 38(163), 172-183; Colombia",st_num:58,im_num:72},
+    {domain:"Costos financieros",study:"Vyas, Meinhart, Troy et al. (2023)",sourceUrl:"https://doi.org/10.1177/15248380211016018",sourceLabel:"DOI",design:"Revisión sistemática de evidencia de costos en países de ingresos bajos y medios (13 estudios)",inference:"Correlacional / descriptiva",strength:"Moderada",latam:false,result:"La revisión identifica costos directos y productividad perdida por VAWG en LMIC; los costos de bolsillo por episodio varían entre US$29.72 y US$156.11 y la productividad perdida por visita entre US$73.84 y US$2,151.48.",caution:"Alta heterogeneidad metodológica, cobertura limitada y comparabilidad restringida; los autores concluyen que las estimaciones capturan solo una fracción de la carga real.",trace:"Trauma, Violence, & Abuse, 24(1), 44-55",st_num:66,im_num:70}
+  ]);
   const patchApp = source => String(source)
     .replace(
       'const EVIDENCE=Object.freeze((window.DASHBOARD_EVIDENCE_PARTS||[]).flat());',
@@ -252,7 +256,12 @@
     const scripts = [];
     for (const file of files) {
       const source = await loadText(file);
-      scripts.push(file === "app.js" ? patchApp(source) : source);
+      if (file === "app.js") {
+        scripts.push(`window.DASHBOARD_EVIDENCE_PARTS=(window.DASHBOARD_EVIDENCE_PARTS||[]).concat([${JSON.stringify(extraEvidence)}]);`);
+        scripts.push(patchApp(source));
+      } else {
+        scripts.push(source);
+      }
     }
     for (const source of scripts) (0, eval)(source);
   };
