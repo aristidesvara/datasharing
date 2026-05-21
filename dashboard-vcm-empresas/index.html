@@ -7,6 +7,22 @@
 <meta name="author" content="Arístides Alfredo Vara Horna">
 <title>Impacto de la VCM en las Empresas - versión fusionada</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/aristidesvara/datasharing@master/dashboard-vcm-empresas/style.css?v=sober-20260520">
+<style>
+.axis-rubric{margin-top:12px;border-top:1px solid var(--line);padding-top:12px;color:var(--muted);font-size:12px;line-height:1.42;font-weight:760}
+.axis-rubric summary{cursor:pointer;color:var(--ink);font-weight:950}
+.axis-rubric p{margin:8px 0 0}
+.year-fill{background:var(--blue)!important}
+.table-source{font-weight:900;color:var(--ink)}
+.table-domain{display:inline-block;padding:4px 8px;border-radius:999px;color:#fff;font-size:11px;font-weight:950}
+.table-design,.table-inference{color:var(--muted);font-size:12px;font-weight:800}
+.table-strength{display:block;min-width:86px;padding:4px 8px;border-radius:999px;text-align:center;font-size:11px;font-weight:950}
+.table-strength.strong{background:#e3f0eb;color:var(--green)}
+.table-strength.moderate{background:#f5ebd8;color:#74501d}
+.table-strength.weak{background:#f2dde2;color:var(--red)}
+.table-strength.neutral{background:#e6ebef;color:#5d6670}
+.table-result{color:var(--muted);line-height:1.35}
+.table-result small{display:block;margin-top:4px;color:var(--red);font-weight:900}
+</style>
 </head>
 <body>
 <header class="topbar">
@@ -67,6 +83,10 @@
             <span class="axis-label y">Más fuerza</span>
             <span class="axis-label x">Más impacto empresarial</span>
           </div>
+          <details class="axis-rubric">
+            <summary>Cómo leer las coordenadas</summary>
+            <p>El eje X e Y no son mediciones originales de los estudios. Son puntajes curatoriales discretos para ordenar visualmente el corpus: impacto organizacional aproximado y fuerza inferencial según diseño, inferencia y cautelas. Los casos aplicados se muestran como no inferenciales.</p>
+          </details>
         </div>
       </div>
     </div>
@@ -120,7 +140,7 @@
       <article class="action-card"><div><div class="step">1</div><h3>Medir el daño que no se reporta</h3><p>Separar prevalencia, incidentes, ausentismo, presentismo, rotación, clima, represalias y respuesta institucional.</p></div></article>
       <article class="action-card"><div><div class="step">2</div><h3>Proteger antes de judicializar</h3><p>Crear rutas seguras, confidenciales y rápidas para sostener empleo, seguridad y continuidad laboral de sobrevivientes.</p></div></article>
       <article class="action-card"><div><div class="step">3</div><h3>Entrenar a gerencias como aliadas</h3><p>Pasar de charlas informativas a entrenamiento aplicado: escenarios, intervención de terceros, manejo de resistencias y accountability.</p></div></article>
-      <article class="action-card"><div><div class="step">4</div><h3>Auditar cultura y consecuencias</h3><p>Evaluar si la política reduce silencio o solo produce documentation. Cruzar datos de quejas, clima, salidas y desempeño.</p></div></article>
+      <article class="action-card"><div><div class="step">4</div><h3>Auditar cultura y consecuencias</h3><p>Evaluar si la política reduce silencio o solo produce documentación. Cruzar datos de quejas, clima, salidas y desempeño.</p></div></article>
     </div>
   </section>
 
@@ -170,6 +190,49 @@
   ];
   const files = ["evidence-data-1.js", "evidence-data-2.js", "evidence-data-3.js", "app.js"];
   const status = document.getElementById("explorerContainer");
+  const patchApp = source => String(source)
+    .replace(
+      'const EVIDENCE=Object.freeze((window.DASHBOARD_EVIDENCE_PARTS||[]).flat());',
+      'const yearFromStudy=study=>Number((String(study||"").match(/\\b(19|20)\\d{2}\\b/)||[])[0])||null;\nconst EVIDENCE=Object.freeze((window.DASHBOARD_EVIDENCE_PARTS||[]).flat().map(row=>Object.freeze({...row,year:row.year??yearFromStudy(row.study)})));'
+    )
+    .replace(
+      'const unique=values=>[...new Set(values)].filter(Boolean).sort();',
+      'const unique=values=>[...new Set(values)].filter(Boolean).sort();\nconst groupBy=(rows,keyFn)=>rows.reduce((acc,row)=>{const key=keyFn(row);return {...acc,[key]:[...(acc[key]||[]),row]}},{});\nconst debounce=(fn,delay=120)=>{let timer;return (...args)=>{clearTimeout(timer);timer=setTimeout(()=>fn(...args),delay)}};'
+    )
+    .replace(
+      /const evidenceYear=row=>\{[\s\S]*?\n\};/,
+      'const evidenceYear=row=>row.year??yearFromStudy(row.study);'
+    )
+    .replace(
+      'if(item.sourceUrl.startsWith("#"))return `${item.study||item.title}<span class="source-tag">${item.sourceLabel||"Fuente"}</span>`;',
+      'if(item.sourceUrl.startsWith("#"))return `${item.study||item.title}<span class="source-tag">Fuente en revisión</span>`;'
+    )
+    .replace(
+      'const grouped=rows.reduce((acc,row)=>({...acc,[row.domain]:[...(acc[row.domain]||[]),row]}),{});',
+      'const grouped=groupBy(rows,row=>row.domain);'
+    )
+    .replace(
+      'const grouped=rows.reduce((acc,row)=>{const key=row.domain==="Caso aplicado"?"Casos aplicados":row.domain;acc[key]=[...(acc[key]||[]),row];return acc},{});',
+      'const grouped=groupBy(rows,row=>row.domain==="Caso aplicado"?"Casos aplicados":row.domain);'
+    )
+    .replaceAll('renderBarsChart(EVIDENCE);', 'renderBarsChart(rows);')
+    .replaceAll('renderAxisPlot(EVIDENCE);', 'renderAxisPlot(rows);')
+    .replaceAll('renderTimelineChart(EVIDENCE);', 'renderTimelineChart(rows);')
+    .replace(
+      'searchInput.addEventListener("input",e=>{state={...state,query:e.target.value};drawExplorer()});',
+      'searchInput.addEventListener("input",debounce(e=>{state={...state,query:e.target.value};drawExplorer()}));'
+    )
+    .replaceAll('class="font-bold text-slate-900"', 'class="table-source"')
+    .replaceAll('class="px-2 py-0.5 rounded text-[11px] font-bold text-white"', 'class="table-domain"')
+    .replaceAll('class="text-xs font-semibold text-indigo-600"', 'class="table-design"')
+    .replaceAll('class="text-xs font-semibold"', 'class="table-inference"')
+    .replace(/class="px-2 py-0\.5 rounded text-\[11px\] font-bold block text-center \$\{row\.strength==='Fuerte'\?'bg-emerald-100 text-green-800':row\.strength==='Moderada'\?'bg-amber-100 text-amber-800':'bg-slate-100 text-slate-800'\}"/g, 'class="table-strength ${strengthClass(row.strength)}"')
+    .replaceAll('class="text-sm text-slate-700"', 'class="table-result"')
+    .replaceAll('class="text-red-700 block mt-1 font-bold"', '')
+    .replaceAll('class="text-slate-800 font-medium"', '')
+    .replaceAll('class="pill bg-indigo-100 text-indigo-900"', 'class="pill neutral"')
+    .replaceAll('class="mt-2 text-xs"', '')
+    .replaceAll('class="text-xs text-red-900"', '');
 
   const loadText = async (file) => {
     let lastError;
@@ -187,7 +250,10 @@
 
   const run = async () => {
     const scripts = [];
-    for (const file of files) scripts.push(await loadText(file));
+    for (const file of files) {
+      const source = await loadText(file);
+      scripts.push(file === "app.js" ? patchApp(source) : source);
+    }
     for (const source of scripts) (0, eval)(source);
   };
 
