@@ -56,7 +56,7 @@
       <p class="subtitle">Dr. Arístides Alfredo Vara Horna / Universidad de San Martín de Porres.</p>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat wide"><strong>88</strong><span>evidencias científicas globales sobre el impacto económico de la violencia contra las mujeres en las empresas.</span></div>
+      <div class="hero-stat wide"><strong>90</strong><span>evidencias científicas globales sobre el impacto económico de la violencia contra las mujeres en las empresas.</span></div>
     </div>
   </div>
 </section>
@@ -182,7 +182,7 @@
           <h3>Lo establecido con evidencia moderada</h3>
           <p>La política escrita inerte no correlaciona con caída de prevalencia. La capacitación interactiva mejora conocimiento y autoeficacia, pero la conducta sostenida sigue siendo el eslabón débil.</p>
         </div>
-        <div class="support">Soporte: 49 estudios moderados; meta-análisis de Roehling y Debnath; estudios nulos de Blumell, de Haas y Naved/HERrespect.</div>
+        <div class="support">Soporte: 53 estudios moderados; meta-análisis de Roehling, Debnath y Adhia; estudios nulos de Blumell, de Haas y Naved/HERrespect.</div>
       </article>
       <article class="reading-card">
         <div>
@@ -190,7 +190,7 @@
           <h3>Lo que recién comienza a documentarse</h3>
           <p>La rentabilidad de la prevención se apoya hoy en casos aplicados sin grupo control. Konecta, INTI, ProCredit y pilotos GIZ son consistentes, pero aún requieren réplicas cuasi-experimentales.</p>
         </div>
-        <div class="support">Soporte: 6 casos aplicados no inferenciales. Cero RCTs sobre ROI. El business case está en construcción, no clausurado.</div>
+        <div class="support">Soporte: 6 casos aplicados no inferenciales y evidencia comparativa de ROI no-VCM. Cero RCTs sobre ROI específico de VCM.</div>
       </article>
       <article class="reading-card">
         <div>
@@ -249,7 +249,9 @@
   const status = document.getElementById("explorerContainer");
   const extraEvidence = Object.freeze([
     {domain:"Productividad",study:"Contreras, Beltrán y Puga Murai & Cortés-García (2022)",sourceUrl:"https://doi.org/10.18046/j.estger.2022.163.4857",sourceLabel:"DOI",design:"Estudio aplicado en dos empresas colombianas (n=172) con cuestionarios validados de costeo laboral",inference:"Correlacional / descriptiva",strength:"Moderada",latam:true,result:"El costo de la violencia de pareja para dos empresas colombianas fue de USD $28,692.68 en el último año, medido vía ausentismo, tardanza y presentismo desde víctimas y agresores.",caution:"Muestra acotada a dos empresas; útil como evidencia aplicada de costeo empresarial, no como estimación nacional ni inferencia causal.",trace:"Estudios Gerenciales, 38(163), 172-183; Colombia",st_num:58,im_num:72},
-    {domain:"Costos financieros",study:"Vyas, Meinhart, Troy et al. (2023)",sourceUrl:"https://doi.org/10.1177/15248380211016018",sourceLabel:"DOI",design:"Revisión sistemática de evidencia de costos en países de ingresos bajos y medios (13 estudios)",inference:"Correlacional / descriptiva",strength:"Moderada",latam:false,result:"La revisión identifica costos directos y productividad perdida por VAWG en LMIC; los costos de bolsillo por episodio varían entre US$29.72 y US$156.11 y la productividad perdida por visita entre US$73.84 y US$2,151.48.",caution:"Alta heterogeneidad metodológica, cobertura limitada y comparabilidad restringida; los autores concluyen que las estimaciones capturan solo una fracción de la carga real.",trace:"Trauma, Violence, & Abuse, 24(1), 44-55",st_num:66,im_num:70}
+    {domain:"Costos financieros",study:"Vyas, Meinhart, Troy et al. (2023)",sourceUrl:"https://doi.org/10.1177/15248380211016018",sourceLabel:"DOI",design:"Revisión sistemática de evidencia de costos en países de ingresos bajos y medios (13 estudios)",inference:"Correlacional / descriptiva",strength:"Moderada",latam:false,result:"La revisión identifica costos directos y productividad perdida por VAWG en LMIC; los costos de bolsillo por episodio varían entre US$29.72 y US$156.11 y la productividad perdida por visita entre US$73.84 y US$2,151.48.",caution:"Alta heterogeneidad metodológica, cobertura limitada y comparabilidad restringida; los autores concluyen que las estimaciones capturan solo una fracción de la carga real.",trace:"Trauma, Violence, & Abuse, 24(1), 44-55",st_num:66,im_num:70},
+    {domain:"Políticas",study:"Adhia, Gelaye, Friedman, Marlow, Mercy & Williams (2019)",sourceUrl:"https://doi.org/10.1080/15555240.2019.1609361",sourceLabel:"DOI",design:"Revisión sistemática de intervenciones laborales frente a violencia de pareja",inference:"Correlacional / descriptiva",strength:"Moderada",latam:false,result:"Las intervenciones laborales frente a VPI muestran mejoras en conocimiento, actitudes, preparación organizacional y respuesta de pares, pero la evidencia de reducción sostenida de violencia o daño laboral sigue limitada.",caution:"Corpus primario pequeño y heterogéneo; útil para mapear componentes de intervención, no para estimar eficacia causal robusta.",trace:"Journal of Workplace Behavioral Health, 34(3); revisión sistemática",st_num:62,im_num:54},
+    {domain:"Productividad",study:"Barbosa, Bray, Dowd, Mills, Moen, Wipfli, Olson & Kelly (2015)",sourceUrl:"https://doi.org/10.1097/JOM.0000000000000520",sourceLabel:"DOI",design:"Evaluación económica de una intervención trabajo-familia con estimación de retorno de inversión",inference:"Correlacional / descriptiva",strength:"Moderada",latam:false,result:"La evaluación estima retorno financiero positivo de una intervención organizacional trabajo-familia vía cambios en salud, productividad y costos laborales; aporta una plantilla metodológica para costear prevención corporativa.",caution:"No es una intervención sobre VCM, acoso o VPI; debe usarse como evidencia comparativa de metodología ROI, no como prueba directa del business case VCM.",trace:"Journal of Occupational and Environmental Medicine, 57(9), 943-951",st_num:63,im_num:62}
   ]);
   const patchApp = source => String(source)
     .replace(
